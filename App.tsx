@@ -86,8 +86,8 @@ const App: React.FC = () => {
           </div>
           <div>
             <h4 className="font-semibold mb-4">Contacto</h4>
-            <p className="text-slate-400 text-sm">Calle Salud 123, Madrid, España</p>
-            <p className="text-slate-400 text-sm">Tel: +34 900 000 000</p>
+            <p className="text-slate-400 text-sm">Panamá,Panamá</p>
+            <p className="text-slate-400 text-sm">Tel: +507 67140596</p>
             <p className="text-emerald-400 text-sm mt-2">Abierto 24/7</p>
           </div>
         </div>
