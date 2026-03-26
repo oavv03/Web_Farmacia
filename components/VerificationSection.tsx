@@ -11,8 +11,8 @@ interface VerificationSectionProps {
 type PaymentMethod = 'card' | 'local' | null;
 
 const EMAILJS_PUBLIC_KEY = "kiFyaTq9fgifka-e7";
-const EMAILJS_SERVICE_ID = "service_eozf46x";
-const EMAILJS_TEMPLATE_ID = "template_0x7enqs";
+const EMAILJS_SERVICE_ID = "service_lyyg9um";
+const EMAILJS_TEMPLATE_ID = "template_xeoeakd";
 
 const VerificationSection: React.FC<VerificationSectionProps> = ({ cart, onSuccess, onCancel }) => {
   const [step, setStep] = useState<'email' | 'code' | 'payment' | 'card' | 'success'>('email');
@@ -58,15 +58,19 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({ cart, onSucce
       if (window.emailjs) {
         // @ts-ignore
         const response = await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: email,
+          to_email: email,    // Variable estándar
+          email: email,       // Variable común
+          user_email: email,  // Otra variable común
           code: newCode,
           message: `Su código de validación para FarmaSalud es: ${newCode}`
         });
         if (response.status === 200) setStep('code');
         else throw new Error("Error de servidor");
       }
-    } catch (err) {
-      setError("No se pudo enviar el código. Reintente.");
+    } catch (err: any) {
+      console.error("Error detallado de EmailJS:", err);
+      const errorMsg = err?.text || err?.message || "Error desconocido";
+      setError(`Error al enviar: ${errorMsg}. Verifica tus IDs y Public Key.`);
     } finally {
       setIsLoading(false);
     }
